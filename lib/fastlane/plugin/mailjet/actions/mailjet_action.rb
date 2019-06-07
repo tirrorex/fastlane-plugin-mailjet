@@ -26,10 +26,6 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :secret_key,
                                        env_name: "MAILJET_PRIVATEKEY",
                                        description: "Private api key for mailjet") ,
-          FastlaneCore::ConfigItem.new(key: :api_version,
-                                       env_name: "MAILJET_APIVERSION",
-                                       description: "API version formailjet",
-                                       default_value: "v3"),
           FastlaneCore::ConfigItem.new(key: :sender,
                                        env_name: "SENDER",
                                        description: "Object containing sender email and name",
@@ -56,12 +52,12 @@ module Fastlane
                                       is_string: false),
           FastlaneCore::ConfigItem.new(key: :templateErrorReporting,
                                        env_name: "TEMPLATE_ERROR_REPORTING",
-                                       description: "Mail adress for the reporting of error",
+                                       description: "Email Address where a message with the error description is sent to",
                                        optional: true,
                                        is_string: false),
-          FastlaneCore::ConfigItem.new(key: :templatEerrorDeliver,
+          FastlaneCore::ConfigItem.new(key: :templateErrorDeliver,
                                        env_name: "TEMPLATE_ERROR_DELIVER",
-                                       description: "Deliver error template",
+                                       description: "Determines if the message should - or not - be delivered to the recipient in case of an error, when processing the message's template language",
                                        optional: true),
           FastlaneCore::ConfigItem.new(key: :templateId,
                                        env_name: "TEMPLATEID",
@@ -70,6 +66,11 @@ module Fastlane
                                        is_string: false),
           FastlaneCore::ConfigItem.new(key: :vars,
                                        env_name: "VARS",
+                                       description: "Variables of the mail object",
+                                       optional: true,
+                                       is_string: false),
+          FastlaneCore::ConfigItem.new(key: :attachments,
+                                       env_name: "ATTACHEMENTS",
                                        description: "Variables of the mail object",
                                        optional: true,
                                        is_string: false),
@@ -86,21 +87,23 @@ module Fastlane
         Mailjet.configure do |config|
           config.api_key = options[:api_key]
           config.secret_key = options[:secret_key]
-          config.api_version = options[:api_version]
+          config.api_version = "v3"
         end
         recipientsArray= options[:recipients].split(/[,;]/).each do |recip|
             hash = {:email => "recipient email"}
         end
-          email = { :from_email   => options.dig(:sender, :email),
+          email = {
+            :from_email   => options.dig(:sender, :email),
             :from_name    => options.dig(:sender, :name),
             :subject      => options[:subject],
             :text_part    => options[:textPart],
             :recipients   => recipientsArray,
             :'mj-templatelanguage' => options[:templateLanguage],
             :'mj-templateerrorreporting' => options[:templateErrorReporting],
-            :'mj-templateerrordeliver' => options[:templatEerrorDeliver],
+            :'mj-templateerrordeliver' => options[:templateErrorDeliver],
             :'mj-templateid' => options[:templateId],
-            :vars => options[:vars]
+            :vars => options[:vars],
+            :attachments => options[:attachments]
           }
           test = Mailjet::Send.create(email)
       end

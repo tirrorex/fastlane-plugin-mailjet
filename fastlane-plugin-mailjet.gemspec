@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'thibaut.noah@external.chanel-corp.com'
 
   spec.summary       = 'plugin to send mail notifications for build release'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-mailjet"
+  spec.homepage      = "https://github.com/tirrorex/fastlane-plugin-mailjet"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
