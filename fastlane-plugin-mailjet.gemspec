@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-mailjet'
   spec.version       = Fastlane::Mailjet::VERSION
   spec.author        = 'thibaut noah'
-  spec.email         = 'thibaut.noah@external.chanel-corp.com'
+  spec.email         = 'thibaut.noah@gmail.com'
 
   spec.summary       = 'plugin to send mail notifications for build release'
   spec.homepage      = "https://github.com/tirrorex/fastlane-plugin-mailjet"
@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   # since this would cause a circular dependency
 
   # spec.add_dependency 'your-dependency', '~> 1.0.0'
+  spec.add_dependency 'mailjet'
 
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
