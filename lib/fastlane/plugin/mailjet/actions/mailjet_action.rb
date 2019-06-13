@@ -1,4 +1,5 @@
 require 'fastlane/action'
+require 'fastlane_core/ui/ui'
 #require_relative '../helper/test_helper'
 require 'mailjet'
 
@@ -10,6 +11,7 @@ module Fastlane
       end
 
       def self.run(options)
+        UI.error "Wahaha, what's going on here! (usually red)"
         Actions.verify_gem!('mailjet')
         require 'mailjet'
         mailjetunit(options)
@@ -84,6 +86,7 @@ module Fastlane
       end
 
       def self.mailjetunit(options)
+        UI.message "Neutral message (usually white)"
         # initializers/mailjet.rb
         Mailjet.configure do |config|
           config.api_key = options[:api_key]

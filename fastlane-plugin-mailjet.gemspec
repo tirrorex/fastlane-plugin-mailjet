@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
 
   # spec.add_dependency 'your-dependency', '~> 1.0.0'
   spec.add_dependency 'mailjet'
+  #, :branch => 'master', :git => "https://github.com/mailjet/mailjet-gem"
 
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
